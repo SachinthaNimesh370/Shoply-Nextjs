@@ -16,8 +16,8 @@ export default function Header() {
       {/* Navigation Links */}
       <nav className="flex-1 text-center">
         <ul className="flex justify-center space-x-6">
-          <li><a href="#" className="hover:underline">Home</a></li>
-          <li><a href="#" className="hover:underline">Product</a></li>
+          <li><a href="/" className="hover:underline">Home</a></li>
+          <li><a href="/product" className="hover:underline">Product</a></li>
           <li><a href="#" className="hover:underline">Categories</a></li>
           <li><a href="#" className="hover:underline">About</a></li>
           <li><a href="#" className="hover:underline">Contact Us</a></li>
