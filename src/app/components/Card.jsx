@@ -17,7 +17,7 @@ export default function ProductCard({ id, title, price, description, image }) {
     <Card
       sx={{
         maxWidth: 250,
-        height:400,
+        height: 400,
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
