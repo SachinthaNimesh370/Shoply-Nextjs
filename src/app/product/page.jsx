@@ -11,7 +11,8 @@ export default function Page() {
 
   useEffect(() => {
     // Fetch products from the API
-    fetch('https://fakestoreapi.com/products')
+    // fetch('https://fakestoreapi.com/products')
+    fetch('http://localhost:5175/api/Product/all')
       .then((response) => response.json())
       .then((data) => setProducts(data))
       .catch((error) => console.error('Error fetching products:', error));
