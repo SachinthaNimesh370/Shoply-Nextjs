@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Container } from '@mui/material';
+import { Box, Container, TextField, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -8,32 +8,53 @@ import Card from '../components/Card'; // renamed from `Card` to avoid confusion
 
 export default function Page() {
   const [products, setProducts] = useState([]);
+  const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
     // Fetch products from the API
-    // fetch('https://fakestoreapi.com/products')
     fetch('http://localhost:5175/api/Product/all')
       .then((response) => response.json())
       .then((data) => setProducts(data))
       .catch((error) => console.error('Error fetching products:', error));
   }, []);
 
+  const filteredProducts = products.filter((product) =>
+    product.title.toLowerCase().includes(searchText.toLowerCase())
+  );
+
   return (
     <Box sx={{ paddingTop: '64px' }}>
       <Header />
 
-      <Container sx={{ my: 4, display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center' }}>
-        {products.map((product) => (
-          <Card
-            key={product.id}
-            id={product.id}
-            title={product.title}
-            price={product.price}
-            description={product.description}
-            image={product.image}
-            rating={product.rating}
-          />
-        ))}
+      <Container sx={{ my: 4 }}>
+        <TextField
+          fullWidth
+          label="Search Products"
+          variant="outlined"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          sx={{ marginBottom: 4 }}
+        />
+
+        {filteredProducts.length > 0 ? (
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center' }}>
+            {filteredProducts.map((product) => (
+              <Card
+                key={product.id}
+                id={product.id}
+                title={product.title}
+                price={product.price}
+                description={product.description}
+                image={product.image}
+                rating={product.rating}
+              />
+            ))}
+          </Box>
+        ) : (
+          <Typography variant="h6" textAlign="center">
+            {searchText ? 'No products found.' : 'Loading products...'}
+          </Typography>
+        )}
       </Container>
 
       <Footer />
