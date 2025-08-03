@@ -3,39 +3,47 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faShoppingCart, faUser } from '@fortawesome/free-solid-svg-icons';
 import { library } from '@fortawesome/fontawesome-svg-core';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import IconButton from '@mui/material/IconButton';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 
 // Add icons to the library (optional if you're not using icon strings)
 library.add(faMagnifyingGlass, faShoppingCart, faUser);
 
 export default function Header() {
   return (
-    <header className="p-4 bg-gray-800 text-white flex justify-between items-center">
-      {/* Logo / Site Name (optional) */}
-      <div className="text-lg font-bold ">Shoply</div>
+    <AppBar position="fixed" sx={{ backgroundColor: 'gray.800', zIndex: 1201 }}>
+      <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        {/* Logo / Site Name */}
+        <Typography variant="h6" component="div" sx={{ fontWeight: 'bold' }}>
+          Shoply
+        </Typography>
 
-      {/* Navigation Links */}
-      <nav className="flex-1 text-center">
-        <ul className="flex justify-center space-x-6">
-          <li><a href="/" className="hover:underline">Home</a></li>
-          <li><a href="/product" className="hover:underline">Product</a></li>
-          <li><a href="#" className="hover:underline">Categories</a></li>
-          <li><a href="#" className="hover:underline">About</a></li>
-          <li><a href="#" className="hover:underline">Contact Us</a></li>
-        </ul>
-      </nav>
+        {/* Navigation Links */}
+        <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', gap: 2 }}>
+          <Button href="/" color="inherit">Home</Button>
+          <Button href="/product" color="inherit">Product</Button>
+          <Button href="#" color="inherit">Categories</Button>
+          <Button href="#" color="inherit">About</Button>
+          <Button href="#" color="inherit">Contact Us</Button>
+        </Box>
 
-      {/* Right Side Icons */}
-      <div className="flex items-center space-x-4">
-        <button className="p-2  rounded hover:bg-gray-700">
-          <FontAwesomeIcon icon={faMagnifyingGlass} />
-        </button>
-        <button className="p-2  rounded hover:bg-gray-700">
-          <FontAwesomeIcon icon={faShoppingCart} />
-        </button>
-        <button className="p-2  rounded hover:bg-gray-700">
-          <FontAwesomeIcon icon={faUser} />
-        </button>
-      </div>
-    </header>
+        {/* Right Side Icons */}
+        <Box sx={{ display: 'flex', gap: 2 }}>
+          <IconButton color="inherit">
+            <FontAwesomeIcon icon={faMagnifyingGlass} />
+          </IconButton>
+          <IconButton color="inherit">
+            <FontAwesomeIcon icon={faShoppingCart} />
+          </IconButton>
+          <IconButton color="inherit">
+            <FontAwesomeIcon icon={faUser} />
+          </IconButton>
+        </Box>
+      </Toolbar>
+    </AppBar>
   );
 }
