@@ -13,17 +13,22 @@ import { Box } from '@mui/material';
 import Rating from '@mui/material/Rating';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { useCart } from '../cart/CartContext';
 
 export default function ProductCard({ id, title, price, description, image, rating }) {
   const router = useRouter();
   const [quantity, setQuantity] = useState(1);
+  const { dispatch } = useCart();
 
   const handleQuantityChange = (increment) => {
     setQuantity((prevQuantity) => Math.max(1, prevQuantity + increment));
   };
 
   const handleAddToCart = () => {
-    // Logic to add the product to the cart can be implemented here
+    dispatch({
+      type: 'ADD_TO_CART',
+      payload: { id, title, price, quantity, image },
+    });
     console.log(`Added ${quantity} of product ${id} to the cart.`);
   };
 
@@ -73,7 +78,7 @@ export default function ProductCard({ id, title, price, description, image, rati
         </Typography>
         <Typography
           variant="body1"
-          sx={{ color: 'text.secondary', fontSize: 12,minHeight: '60px', display: 'flex', textAlign:'justify' }}
+          sx={{ color: 'text.secondary', fontSize: 12, minHeight: '60px', display: 'flex', textAlign: 'justify' }}
         >
           {description}
         </Typography>
@@ -94,20 +99,17 @@ export default function ProductCard({ id, title, price, description, image, rati
           ${price}
         </Typography>
 
-
         <Box sx={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
-
-        {/* Quantity and Total Price */}
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: 2 }}>
-          <Button variant="outlined" size="small" onClick={() => handleQuantityChange(-1)}>-</Button>
+          {/* Quantity and Total Price */}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: 2 }}>
+            <Button variant="outlined" size="small" onClick={() => handleQuantityChange(-1)}>-</Button>
             <Typography variant="body1" sx={{ fontSize: 16 }}>
               {quantity}
             </Typography>
-          <Button variant="outlined" size="small" onClick={() => handleQuantityChange(1)}>+</Button>
-        </Box>
-          
+            <Button variant="outlined" size="small" onClick={() => handleQuantityChange(1)}>+</Button>
+          </Box>
 
-        {/* Add to Cart Button */}
+          {/* Add to Cart Button */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 2 }}>
             <Button
               variant="contained"
@@ -120,13 +122,11 @@ export default function ProductCard({ id, title, price, description, image, rati
           </Box>
         </Box>
         <Typography
-            variant="body1"
-            sx={{ color: 'text.secondary', fontSize: 14, textAlign: 'left', mt: 1 }}
-          >
-            Total Price: ${(quantity * price).toFixed(2)}
-          </Typography>
-
-
+          variant="body1"
+          sx={{ color: 'text.secondary', fontSize: 14, textAlign: 'left', mt: 1 }}
+        >
+          Total Price: ${(quantity * price).toFixed(2)}
+        </Typography>
       </CardContent>
 
       <CardActions

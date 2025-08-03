@@ -9,11 +9,14 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import { useRouter } from 'next/navigation';
 
 // Add icons to the library (optional if you're not using icon strings)
 library.add(faMagnifyingGlass, faShoppingCart, faUser);
 
 export default function Header() {
+  const router = useRouter();
+
   return (
     <AppBar position="fixed" sx={{ backgroundColor: 'gray.800', zIndex: 1201 }}>
       <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -35,7 +38,7 @@ export default function Header() {
           <IconButton color="inherit" sx={{ fontSize: '18px' }}>
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </IconButton>
-          <IconButton color="inherit" sx={{ fontSize: '18px' }}>
+          <IconButton color="inherit" sx={{ fontSize: '18px' }} onClick={() => router.push('/cart')}>
             <FontAwesomeIcon icon={faShoppingCart} />
           </IconButton>
           <IconButton color="inherit" sx={{ fontSize: '18px' }}>
