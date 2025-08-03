@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { Box } from '@mui/material'
+import Typography from '@mui/material/Typography';
 import ProductCard from '../components/Card'
 
 
@@ -13,7 +14,7 @@ export default function Product() {
     fetch('http://localhost:5175/api/Product/all')
       .then((response) => response.json())
       .then((data) => {
-        // Filter products by highest rating and limit to top 10
+        // Filter products by highest rating and limit to top 5
         const sortedProducts = data
           .sort((a, b) => b.rating.rate - a.rating.rate)
           .slice(0, 5);
@@ -23,17 +24,23 @@ export default function Product() {
   }, [])
 
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center', marginTop: 4 }}>
-      {products.map((product) => (
-        <ProductCard
-          key={product.id}
-          id={product.id}
-          title={product.title}
-          price={product.price}
-          description={product.description}
-          image={product.image}
-        />
-      ))}
+    <Box sx={{ marginTop: 4 }}>
+      <Typography variant="h4" sx={{ textAlign: 'center', mb: 4 }}>
+        Top Rated Products
+      </Typography>
+      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center' }}>
+        {products.map((product) => (
+          <ProductCard
+            key={product.id}
+            id={product.id}
+            title={product.title}
+            price={product.price}
+            description={product.description}
+            image={product.image}
+            rating={product.rating}
+          />
+        ))}
+      </Box>
     </Box>
   )
 }

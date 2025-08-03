@@ -9,15 +9,18 @@ import Button from '@mui/material/Button';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';
 import { useRouter } from 'next/navigation';
+import Rating from '@mui/material/Rating';
+import Box from '@mui/material/Box';
 
-export default function ProductCard({ id, title, price, description, image }) {
+export default function ProductCard({ id, title, price, description, image, rating = { rate: 0, count: 0 } }) {
   const router = useRouter();
 
   return (
     <Card
       sx={{
-        maxWidth: 250,
-        height: 310,
+       
+        height: 350,
+        width: 250,
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
@@ -30,7 +33,7 @@ export default function ProductCard({ id, title, price, description, image }) {
           image={image}
           alt={title}
           sx={{
-            height: 140,           
+            height: 130,
             objectFit: 'contain',
             padding: 2,
           }}
@@ -44,14 +47,14 @@ export default function ProductCard({ id, title, price, description, image }) {
             flexDirection: 'column',
             alignItems: 'center',
             position: 'relative',
-            height: 120,
+            height: 60,
           }}
         >
           {/* Product Title */}
           <Typography
             gutterBottom
             component="div"
-            sx={{ fontSize: 14, textAlign: 'center',height:'30', display: 'flex', alignItems: 'center' }}
+            sx={{ fontSize: 14, textAlign: 'center', height: '10px', display: 'flex', alignItems: 'center' }}
           >
             {title}
           </Typography>
@@ -59,20 +62,27 @@ export default function ProductCard({ id, title, price, description, image }) {
           {/* Product Description */}
           <Typography
             variant="body2"
-            sx={{ fontSize: 10, color: 'text.secondary', textAlign: 'center', height: '30px', display: 'flex', alignItems: 'center' }}
+            sx={{ fontSize: 10, color: 'text.secondary', textAlign: 'center', height: '30px', display: 'flex', alignItems: 'center', position: 'absolute', top: 70 }}
           >
             {description.slice(0, 120)}...
-            {/* {description.slice(0, 100)}... */}
           </Typography>
 
           {/* Product Price */}
           <Typography
             color="primary"
             mt={1}
-            sx={{ minHeight: '20px', display: 'flex', alignItems: 'center',fontSize:'5', position: 'absolute', top: 100 }}
+            sx={{ minHeight: '20px', display: 'flex', alignItems: 'center', fontSize: '12px', position: 'absolute', top: 110 }}
           >
             ${price}
           </Typography>
+
+          {/* Product Rating */}
+          <Box sx={{ position: 'absolute', top: 140, display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Rating value={rating?.rate} precision={0.1} readOnly size="small" />
+            <Typography variant="body2" sx={{ fontSize: 10, color: 'text.secondary' }}>
+              ({rating?.count} reviews)
+            </Typography>
+          </Box>
         </CardContent>
       </CardActionArea>
       <CardActions
