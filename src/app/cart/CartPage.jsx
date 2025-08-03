@@ -2,7 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { useCart } from './CartContext';
-import { Box, Typography, Button } from '@mui/material';
+import { Box, Typography, Button, Card, CardContent, CardMedia } from '@mui/material';
 
 export default function CartPage() {
   const { cart, dispatch } = useCart();
@@ -23,24 +23,40 @@ export default function CartPage() {
   };
 
   return (
-    <Box sx={{ padding: 4 }}>
-      <Typography variant="h4" gutterBottom>
-        Your Cart
-      </Typography>
-      {cart.length === 0 ? (
-        <Typography variant="body1">Your cart is empty.</Typography>
-      ) : (
-        cart.map((item) => (
-          <Box key={item.id} sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: 2 }}>
-            <Typography>{item.title}</Typography>
-            <Typography>${item.price}</Typography>
-            <Button variant="outlined" color="secondary" onClick={() => handleRemove(item.id)}>
-              Remove
-            </Button>
-          </Box>
-        ))
-      )
-      }
+    <Box sx={{ padding: 4, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <Box sx={{ maxWidth: 800 }}>
+            <Typography variant="h4" gutterBottom>
+                Your Cart
+            </Typography>
+            {cart.length === 0 ? (
+                <Typography variant="body1">Your cart is empty.</Typography>
+            ) : (
+                cart.map((item) => (
+                <Card key={item.id} sx={{ display: 'flex', marginBottom: 2 }}>
+                    <CardMedia
+                    component="img"
+                    sx={{ width: 100, objectFit: 'contain', padding: 1 }}
+                    image={item.image}
+                    alt={item.title}
+                    />
+                    <CardContent>
+                    <Typography variant="h6">{item.title}</Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        ${item.price} x {item.quantity} = ${(item.price * item.quantity).toFixed(2)}
+                    </Typography>
+                    <Button
+                        variant="outlined"
+                        color="secondary"
+                        onClick={() => handleRemove(item.id)}
+                        sx={{ marginTop: 1 }}
+                    >
+                        Remove
+                    </Button>
+                    </CardContent>
+                </Card>
+                ))
+            )}
+        </Box>
     </Box>
   );
 }
