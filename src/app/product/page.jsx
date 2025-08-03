@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Card from '../components/Card'; // renamed from `Card` to avoid confusion with MUI's `Card`
+import LinearProgress from '@mui/material/LinearProgress';
 
 export default function Page() {
   const [products, setProducts] = useState([]);
@@ -51,9 +52,12 @@ export default function Page() {
             ))}
           </Box>
         ) : (
-          <Typography variant="h6" textAlign="center">
-            {searchText ? 'No products found.' : 'Loading products...'}
-          </Typography>
+          <Box>
+            <LinearProgress />
+            <Typography variant="h6" textAlign="center">
+              {searchText ? 'No products found.' : 'Loading products...'}
+            </Typography>
+          </Box>
         )}
       </Container>
 

@@ -6,23 +6,32 @@ import { useRouter, useParams } from 'next/navigation';
 import DetailsCard from '../../components/DetailsCard';
 import Header from '@/app/components/Header';
 import Footer from '@/app/components/Footer';
+import LinearProgress from '@mui/material/LinearProgress';
+import { useLoading } from '@/app/context/LoadingContext';
 
 export default function ProductDetailsPage() {
   const [product, setProduct] = useState(null);
   const router = useRouter();
   const { id: productId } = useParams();
+  const { setIsLoading } = useLoading();
 
   useEffect(() => {
+    setIsLoading(true);
     if (productId) {
       fetch(`https://fakestoreapi.com/products/${productId}`)
         .then((response) => response.json())
         .then((data) => setProduct(data))
-        .catch((error) => console.error('Error fetching product details:', error));
+        .catch((error) => console.error('Error fetching product details:', error))
+        .finally(() => setIsLoading(false));
     }
-  }, [productId]);
+  }, [productId, setIsLoading]);
 
   if (!product) {
-    return <div>Loading...</div>;
+    return (
+      <Box sx={{ width: '100%' }}>
+        <LinearProgress />
+      </Box>
+    );
   }
 
   return (
@@ -36,6 +45,7 @@ export default function ProductDetailsPage() {
                 description={product.description}
                 image={product.image}
                 rating={product.rating}
+                category={product.category} // Pass the category prop
             />
         </Box>
         <Footer/>

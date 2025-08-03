@@ -17,7 +17,7 @@ import { useCart } from '../cart/CartContext';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 
-export default function ProductCard({ id, title, price, description, image, rating }) {
+export default function ProductCard({ id, title, price, description, image, rating, category }) {
   const router = useRouter();
   const [quantity, setQuantity] = useState(1);
   const { dispatch } = useCart();
@@ -87,6 +87,15 @@ export default function ProductCard({ id, title, price, description, image, rati
         >
           {title}
         </Typography>
+
+                {/* Category Display */}
+        <Typography
+          variant="body2"
+          sx={{ color: 'text.secondary', fontSize: 14, textAlign: 'left', mt: 1 }}
+        >
+          Category: {category}
+        </Typography>
+        
         <Typography
           variant="body1"
           sx={{ color: 'text.secondary', fontSize: 12, minHeight: '60px', display: 'flex', textAlign: 'justify' }}
@@ -109,6 +118,8 @@ export default function ProductCard({ id, title, price, description, image, rati
         >
           ${price}
         </Typography>
+
+
 
         <Box sx={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
           {/* Quantity and Total Price */}

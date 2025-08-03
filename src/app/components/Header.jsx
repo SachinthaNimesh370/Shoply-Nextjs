@@ -9,13 +9,16 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import LinearProgress from '@mui/material/LinearProgress';
 import { useRouter } from 'next/navigation';
+import { useLoading } from '../context/LoadingContext';
 
 // Add icons to the library (optional if you're not using icon strings)
 library.add(faMagnifyingGlass, faShoppingCart, faUser);
 
 export default function Header() {
   const router = useRouter();
+  const { isLoading } = useLoading();
 
   return (
     <AppBar position="fixed" sx={{ backgroundColor: 'gray.800', zIndex: 1201 }}>
@@ -44,6 +47,7 @@ export default function Header() {
           </IconButton>
         </Box>
       </Toolbar>
+      {isLoading && <LinearProgress />}
     </AppBar>
   );
 }
