@@ -26,7 +26,7 @@ export default function Header() {
         <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', gap: 2 }}>
           <Button href="/" color="inherit">Home</Button>
           <Button href="/product" color="inherit">Product</Button>
-          <Button href="#" color="inherit">About</Button>
+          <Button href="about" color="inherit">About</Button>
           <Button href="#" color="inherit">Contact Us</Button>
         </Box>
 
