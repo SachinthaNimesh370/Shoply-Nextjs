@@ -11,6 +11,8 @@ import CardActions from '@mui/material/CardActions';
 import { useRouter } from 'next/navigation';
 import { Box } from '@mui/material';
 import Rating from '@mui/material/Rating';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 export default function ProductCard({ id, title, price, description, image, rating }) {
   const router = useRouter();
@@ -18,6 +20,11 @@ export default function ProductCard({ id, title, price, description, image, rati
 
   const handleQuantityChange = (increment) => {
     setQuantity((prevQuantity) => Math.max(1, prevQuantity + increment));
+  };
+
+  const handleAddToCart = () => {
+    // Logic to add the product to the cart can be implemented here
+    console.log(`Added ${quantity} of product ${id} to the cart.`);
   };
 
   return (
@@ -87,21 +94,39 @@ export default function ProductCard({ id, title, price, description, image, rati
           ${price}
         </Typography>
 
+
+        <Box sx={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
+
         {/* Quantity and Total Price */}
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: 2 }}>
           <Button variant="outlined" size="small" onClick={() => handleQuantityChange(-1)}>-</Button>
-          <Typography variant="body1" sx={{ fontSize: 16 }}>
-            {quantity}
-          </Typography>
+            <Typography variant="body1" sx={{ fontSize: 16 }}>
+              {quantity}
+            </Typography>
           <Button variant="outlined" size="small" onClick={() => handleQuantityChange(1)}>+</Button>
         </Box>
+          
+
+        {/* Add to Cart Button */}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 2 }}>
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<FontAwesomeIcon icon={faShoppingCart} />}
+              onClick={handleAddToCart}
+            >
+              Add to Cart
+            </Button>
+          </Box>
+        </Box>
         <Typography
-          variant="body1"
-          sx={{ color: 'text.secondary', fontSize: 14, textAlign: 'left', mt: 1 }}
-        >
-          Total Price: ${(quantity * price).toFixed(2)}
-        </Typography>
-        
+            variant="body1"
+            sx={{ color: 'text.secondary', fontSize: 14, textAlign: 'left', mt: 1 }}
+          >
+            Total Price: ${(quantity * price).toFixed(2)}
+          </Typography>
+
+
       </CardContent>
 
       <CardActions
