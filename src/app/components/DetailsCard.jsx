@@ -14,22 +14,33 @@ import Rating from '@mui/material/Rating';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { useCart } from '../cart/CartContext';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
 
 export default function ProductCard({ id, title, price, description, image, rating }) {
   const router = useRouter();
   const [quantity, setQuantity] = useState(1);
   const { dispatch } = useCart();
+  const [alert, setAlert] = useState({ open: false, message: '', severity: 'success' });
 
   const handleQuantityChange = (increment) => {
     setQuantity((prevQuantity) => Math.max(1, prevQuantity + increment));
   };
 
   const handleAddToCart = () => {
-    dispatch({
-      type: 'ADD_TO_CART',
-      payload: { id, title, price, quantity, image },
-    });
-    console.log(`Added ${quantity} of product ${id} to the cart.`);
+    try {
+      dispatch({
+        type: 'ADD_TO_CART',
+        payload: { id, title, price, quantity, image },
+      });
+      setAlert({ open: true, message: 'Successfully added to cart!', severity: 'success' });
+    } catch (error) {
+      setAlert({ open: true, message: 'Failed to add to cart. Please try again.', severity: 'error' });
+    }
+  };
+
+  const handleCloseAlert = () => {
+    setAlert({ ...alert, open: false });
   };
 
   return (
@@ -140,6 +151,13 @@ export default function ProductCard({ id, title, price, description, image, rati
           Back to Products
         </Button>
       </CardActions>
+
+      {/* Alert Snackbar */}
+      <Snackbar open={alert.open} autoHideDuration={3000} onClose={handleCloseAlert} anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}>
+        <Alert onClose={handleCloseAlert} severity={alert.severity} sx={{ width: '100%' }}>
+          {alert.message}
+        </Alert>
+      </Snackbar>
     </Card>
   );
 }
