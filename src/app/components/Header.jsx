@@ -35,9 +35,7 @@ export default function Header() {
 
         {/* Right Side Icons */}
         <Box sx={{ display: 'flex', gap: 2 }}>
-          <IconButton color="inherit" sx={{ fontSize: '18px' }}>
-            <FontAwesomeIcon icon={faMagnifyingGlass} />
-          </IconButton>
+          
           <IconButton color="inherit" sx={{ fontSize: '18px' }} onClick={() => router.push('/cart')}>
             <FontAwesomeIcon icon={faShoppingCart} />
           </IconButton>
