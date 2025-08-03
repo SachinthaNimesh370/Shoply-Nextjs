@@ -17,7 +17,7 @@ export default function ProductCard({ id, title, price, description, image }) {
     <Card
       sx={{
         maxWidth: 250,
-        height: 400,
+        height: 310,
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
@@ -27,10 +27,13 @@ export default function ProductCard({ id, title, price, description, image }) {
       <CardActionArea onClick={() => router.push(`/product/${id}`)}>
         <CardMedia
           component="img"
-          height="100"
           image={image}
           alt={title}
-          sx={{ objectFit: 'contain', p: 2, maxHeight: 180 }}
+          sx={{
+            height: 140,           
+            objectFit: 'contain',
+            padding: 2,
+          }}
         />
         <CardContent
           sx={{
@@ -40,27 +43,33 @@ export default function ProductCard({ id, title, price, description, image }) {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            position: 'relative',
+            height: 120,
           }}
         >
+          {/* Product Title */}
           <Typography
             gutterBottom
-            variant="h6"
             component="div"
-            sx={{ fontSize: 16, textAlign: 'center', minHeight: '40px', display: 'flex', alignItems: 'center' }}
+            sx={{ fontSize: 14, textAlign: 'center',height:'30', display: 'flex', alignItems: 'center' }}
           >
-            {title.slice(0, 40)}...
+            {title}
           </Typography>
+
+          {/* Product Description */}
           <Typography
             variant="body2"
-            sx={{ color: 'text.secondary', fontSize: 10, textAlign: 'center', minHeight: '30px', display: 'flex', alignItems: 'center' }}
+            sx={{ fontSize: 10, color: 'text.secondary', textAlign: 'center', height: '30px', display: 'flex', alignItems: 'center' }}
           >
-            {description.slice(0, 100)}...
+            {description.slice(0, 120)}...
+            {/* {description.slice(0, 100)}... */}
           </Typography>
+
+          {/* Product Price */}
           <Typography
-            variant="h6"
             color="primary"
             mt={1}
-            sx={{ minHeight: '20px', display: 'flex', alignItems: 'center' }}
+            sx={{ minHeight: '20px', display: 'flex', alignItems: 'center',fontSize:'5', position: 'absolute', top: 100 }}
           >
             ${price}
           </Typography>

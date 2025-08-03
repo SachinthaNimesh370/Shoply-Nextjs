@@ -16,7 +16,7 @@ export default function Product() {
         // Filter products by highest rating and limit to top 10
         const sortedProducts = data
           .sort((a, b) => b.rating.rate - a.rating.rate)
-          .slice(0, 10);
+          .slice(0, 5);
         setProducts(sortedProducts);
       })
       .catch((error) => console.error('Error fetching products:', error))

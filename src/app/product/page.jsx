@@ -19,7 +19,7 @@ export default function Page() {
   }, []);
 
   return (
-    <Box>
+    <Box sx={{ paddingTop: '64px' }}>
       <Header />
 
       <Container sx={{ my: 4, display: 'flex', flexWrap: 'wrap', gap: 4, justifyContent: 'center' }}>
