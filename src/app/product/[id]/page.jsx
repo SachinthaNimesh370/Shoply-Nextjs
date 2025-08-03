@@ -26,7 +26,7 @@ export default function ProductDetailsPage() {
   }
 
   return (
-    <Box>
+    <Box sx={{ paddingTop: '64px' }}>
         <Header/>
         <Box style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
             <DetailsCard
