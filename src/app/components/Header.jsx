@@ -26,20 +26,19 @@ export default function Header() {
         <Box sx={{ flexGrow: 1, display: 'flex', justifyContent: 'center', gap: 2 }}>
           <Button href="/" color="inherit">Home</Button>
           <Button href="/product" color="inherit">Product</Button>
-          <Button href="#" color="inherit">Categories</Button>
           <Button href="#" color="inherit">About</Button>
           <Button href="#" color="inherit">Contact Us</Button>
         </Box>
 
         {/* Right Side Icons */}
         <Box sx={{ display: 'flex', gap: 2 }}>
-          <IconButton color="inherit">
+          <IconButton color="inherit" sx={{ fontSize: '18px' }}>
             <FontAwesomeIcon icon={faMagnifyingGlass} />
           </IconButton>
-          <IconButton color="inherit">
+          <IconButton color="inherit" sx={{ fontSize: '18px' }}>
             <FontAwesomeIcon icon={faShoppingCart} />
           </IconButton>
-          <IconButton color="inherit">
+          <IconButton color="inherit" sx={{ fontSize: '18px' }}>
             <FontAwesomeIcon icon={faUser} />
           </IconButton>
         </Box>

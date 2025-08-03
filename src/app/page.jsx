@@ -7,7 +7,7 @@ import { Box } from "@mui/material";
 
 export default function Home() {
   return (
-    <Box sx={{ paddingTop: '64px' }}> {/* Adjust padding to account for fixed header height */}
+    <Box sx={{ paddingTop: '64px' }}> 
       <Header />
       <Product />
       <Footer />

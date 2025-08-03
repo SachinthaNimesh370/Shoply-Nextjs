@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -9,77 +9,131 @@ import Button from '@mui/material/Button';
 import CardActionArea from '@mui/material/CardActionArea';
 import CardActions from '@mui/material/CardActions';
 import { useRouter } from 'next/navigation';
+import { Box } from '@mui/material';
+import Rating from '@mui/material/Rating';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 
 export default function ProductCard({ id, title, price, description, image, rating }) {
   const router = useRouter();
+  const [quantity, setQuantity] = useState(1);
+
+  const handleQuantityChange = (increment) => {
+    setQuantity((prevQuantity) => Math.max(1, prevQuantity + increment));
+  };
+
+  const handleAddToCart = () => {
+    // Logic to add the product to the cart can be implemented here
+    console.log(`Added ${quantity} of product ${id} to the cart.`);
+  };
 
   return (
     <Card
       sx={{
-        maxWidth: 400,
-        height: 600,
+        maxWidth: 800,
+        height: 440,
         position: 'relative',
         display: 'flex',
-        flexDirection: 'column',
+        flexDirection: 'row',
         justifyContent: 'space-between',
         padding: 2,
       }}
     >
+      {/* Image Section */}
       <CardMedia
         component="img"
-        height="200"
         image={image}
         alt={title}
-        sx={{ objectFit: 'contain', p: 2, maxHeight: 250 }}
+        sx={{
+          width: '40%',
+          height: '80%',
+          objectFit: 'contain',
+          padding: 2,
+        }}
       />
+
+      {/* Details Section */}
       <CardContent
         sx={{
-          margin: '0 auto',
-          justifyContent: 'center',
-          padding: '5',
+          width: '75%',
           display: 'flex',
           flexDirection: 'column',
-          alignItems: 'center',
+          justifyContent: 'space-between',
+          alignItems: 'flex-start',
+          padding: 2,
         }}
       >
         <Typography
           gutterBottom
           variant="h5"
           component="div"
-          sx={{ fontSize: 18, textAlign: 'center', minHeight: '50px', display: 'flex', alignItems: 'center' }}
+          sx={{ fontSize: 18, textAlign: 'left', minHeight: '50px', display: 'flex', alignItems: 'center' }}
         >
           {title}
         </Typography>
         <Typography
           variant="body1"
-          sx={{ color: 'text.secondary', fontSize: 12, textAlign: 'center', minHeight: '60px', display: 'flex', alignItems: 'center' }}
+          sx={{ color: 'text.secondary', fontSize: 12,minHeight: '60px', display: 'flex', textAlign:'justify' }}
         >
           {description}
         </Typography>
+
+        {/* Product Rating */}
+        <Box sx={{ position: 'relative', display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Rating value={rating?.rate} precision={0.1} readOnly size="small" />
+          <Typography variant="body2" sx={{ fontSize: 10, color: 'text.secondary' }}>
+            ({rating?.count} reviews)
+          </Typography>
+        </Box>
+
         <Typography
-          variant="h6"
           color="primary"
           mt={1}
-          sx={{ minHeight: '20px', display: 'flex', alignItems: 'center',position: 'relative', bottom: 10, }}
+          sx={{ minHeight: '20px', display: 'flex', alignItems: 'center', fontSize: 18 }}
         >
           ${price}
         </Typography>
+
+
+        <Box sx={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'space-between', alignItems: 'center' }}>
+
+        {/* Quantity and Total Price */}
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: 2 }}>
+          <Button variant="outlined" size="small" onClick={() => handleQuantityChange(-1)}>-</Button>
+            <Typography variant="body1" sx={{ fontSize: 16 }}>
+              {quantity}
+            </Typography>
+          <Button variant="outlined" size="small" onClick={() => handleQuantityChange(1)}>+</Button>
+        </Box>
+          
+
+        {/* Add to Cart Button */}
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 2 }}>
+            <Button
+              variant="contained"
+              color="primary"
+              startIcon={<FontAwesomeIcon icon={faShoppingCart} />}
+              onClick={handleAddToCart}
+            >
+              Add to Cart
+            </Button>
+          </Box>
+        </Box>
         <Typography
-          variant="body2"
-          sx={{ color: 'text.secondary', fontSize: 12, textAlign: 'center', mt: 1,position: 'relative', bottom: 12,}}
-        >
-          Rating: {rating.rate} ({rating.count} reviews)
-        </Typography>
+            variant="body1"
+            sx={{ color: 'text.secondary', fontSize: 14, textAlign: 'left', mt: 1 }}
+          >
+            Total Price: ${(quantity * price).toFixed(2)}
+          </Typography>
+
+
       </CardContent>
+
       <CardActions
         sx={{
           position: 'absolute',
-          bottom: 2,
-          left: 0,
-          right: 0,
-          margin: '0 auto',
-          justifyContent: 'center',
-          paddingBottom: '10',
+          bottom: 10,
+          left: 10,
         }}
       >
         <Button size="medium" onClick={() => router.push(`/product`)}>
@@ -90,13 +144,4 @@ export default function ProductCard({ id, title, price, description, image, rati
   );
 }
 
-// {products.map(product => (
-//   <ProductCard
-//     key={product.id}
-//     id={product.id}
-//     title={product.title}
-//     price={product.price}
-//     description={product.description}
-//     image={product.image}
-//   />
-// ))}
+
