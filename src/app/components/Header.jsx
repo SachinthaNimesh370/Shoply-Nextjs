@@ -33,7 +33,7 @@ export default function Header() {
           <Button href="/" color="inherit">Home</Button>
           <Button href="/product" color="inherit">Product</Button>
           <Button href="about" color="inherit">About</Button>
-          <Button href="#" color="inherit">Contact Us</Button>
+          <Button href="contactus" color="inherit">Contact Us</Button>
         </Box>
 
         {/* Right Side Icons */}
