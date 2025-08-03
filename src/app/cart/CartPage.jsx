@@ -1,9 +1,22 @@
-import React from 'react';
+"use client";
+
+import React, { useEffect } from 'react';
 import { useCart } from './CartContext';
 import { Box, Typography, Button } from '@mui/material';
 
 export default function CartPage() {
   const { cart, dispatch } = useCart();
+
+  useEffect(() => {
+    const savedCart = localStorage.getItem('cart');
+    if (savedCart) {
+      dispatch({ type: 'SET_CART', payload: JSON.parse(savedCart) });
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
 
   const handleRemove = (id) => {
     dispatch({ type: 'REMOVE_FROM_CART', payload: { id } });
@@ -26,7 +39,8 @@ export default function CartPage() {
             </Button>
           </Box>
         ))
-      )}
+      )
+      }
     </Box>
   );
 }
