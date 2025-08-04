@@ -53,9 +53,9 @@ export default function Page() {
           </Box>
         ) : (
           <Box>
-            <LinearProgress />
+            {products.length === 0 && <LinearProgress />}
             <Typography variant="h6" textAlign="center">
-              {searchText ? 'No products found.' : 'Loading products...'}
+              {searchText ? 'No products found.' : products.length === 0 ? 'No products available at the moment. Please try again later.' : 'Loading products...'}
             </Typography>
           </Box>
         )}
